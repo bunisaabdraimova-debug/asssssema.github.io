@@ -1,0 +1,1533 @@
+<!doctype html>
+<html lang="ru" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Авто МАНАС — Продажа автомобилей в Кыргызстане</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Montserrat', sans-serif; }
+    html, body { height: 100%; margin: 0; }
+    .app-wrapper { height: 100%; overflow-y: auto; overflow-x: hidden; }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    
+    @keyframes slideDown {
+      from { opacity: 0; max-height: 0; }
+      to { opacity: 1; max-height: 500px; }
+    }
+    
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.9) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    
+    .animate-fade-in { animation: fadeIn 0.6s ease-out forwards; }
+    .animate-slide-in { animation: slideIn 0.5s ease-out forwards; }
+    .animate-scale-in { animation: scaleIn 0.3s ease-out forwards; }
+    .animate-slide-down { animation: slideDown 0.4s ease-out forwards; }
+    .animate-pop-in { animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+    
+    .card-hover {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    
+    .feature-card {
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 32px rgba(220, 38, 38, 0.2);
+    }
+    
+    .feature-card:hover .feature-icon {
+      background: #DC2626 !important;
+      color: white !important;
+      transform: scale(1.1);
+    }
+    
+    .btn-primary {
+      background: #DC2626;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      background: #B91C1C;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(220, 38, 38, 0.4);
+    }
+    
+    .modal-backdrop {
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+    }
+    
+    .special-offer-badge {
+      background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%);
+    }
+    
+    .hero-gradient {
+      background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.6) 100%);
+    }
+    
+    .feature-details {
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+    }
+    
+    .feature-details.open {
+      animation: slideDown 0.4s ease-out forwards;
+    }
+
+    /* Logo styles */
+    .logo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      position: relative;
+      width: 3rem;
+      height: 3rem;
+      
+    
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .info-modal-content {
+      animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .credit-benefit-card {
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .credit-benefit-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(220, 38, 38, 0.15);
+    }
+
+    .credit-benefit-card.expanded {
+      background: linear-gradient(135deg, #fef2f2 0%, #fff5f5 100%);
+    }
+
+    .credit-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .credit-modal.hidden {
+      display: none;
+    }
+
+    .credit-modal-inner {
+      background: white;
+      border-radius: 1.5rem;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-white">
+  <div class="app-wrapper w-full" id="app"><!-- Navigation -->
+   <nav class="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="flex justify-between items-center h-16 sm:h-20">
+      <div class="flex items-center cursor-pointer" onclick="navigateTo('home')">
+       <div class="logo-icon">
+        
+       </div>
+       <div><span id="nav-company-name" class="text-lg sm:text-xl font-bold text-gray-900">Авто МАНАС</span>
+        <p class="text-xs text-gray-500 hidden sm:block">Надёжный выбор</p>
+       </div>
+      </div><!-- Desktop Menu -->
+      <div class="hidden md:flex items-center space-x-8"><button onclick="navigateTo('home')" class="text-gray-700 hover:text-red-600 font-medium transition-colors">Главная</button> <button onclick="navigateTo('catalog')" class="text-gray-700 hover:text-red-600 font-medium transition-colors">Каталог</button> <button onclick="navigateTo('credit')" class="text-gray-700 hover:text-red-600 font-medium transition-colors">Кредит</button> <button onclick="navigateTo('about')" class="text-gray-700 hover:text-red-600 font-medium transition-colors">О нас</button> <button onclick="navigateTo('contacts')" class="text-gray-700 hover:text-red-600 font-medium transition-colors">Контакты</button>
+      </div>
+      <div class="hidden md:flex items-center"><a href="tel:+996555123456" id="nav-phone" class="flex items-center text-red-600 font-semibold hover:text-red-700 transition-colors">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+        </svg> +996 555 123 456 </a>
+      </div><!-- Mobile Menu Button --> <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors">
+       <svg id="menu-icon" class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+       </svg>
+       <svg id="close-icon" class="w-6 h-6 text-gray-700 hidden" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+       </svg></button>
+     </div>
+    </div><!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t shadow-lg">
+     <div class="px-4 py-4 space-y-3"><button onclick="navigateTo('home'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-gray-700 hover:bg-red-50 hover:text-red-600 rounded-lg font-medium transition-colors">Главная</button> <button onclick="navigateTo('catalog'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-gray-700 hover:bg-red-50 hover:text-red-600 rounded-lg font-medium transition-colors">Каталог</button> <button onclick="navigateTo('credit'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-gray-700 hover:bg-red-50 hover:text-red-600 rounded-lg font-medium transition-colors">Авто в кредит</button> <button onclick="navigateTo('about'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-gray-700 hover:bg-red-50 hover:text-red-600 rounded-lg font-medium transition-colors">О нас</button> <button onclick="navigateTo('contacts'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-gray-700 hover:bg-red-50 hover:text-red-600 rounded-lg font-medium transition-colors">Контакты</button> <a href="tel:+996555123456" class="flex items-center justify-center px-4 py-3 bg-red-600 text-white rounded-lg font-medium">
+       <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+       </svg> Позвонить </a>
+     </div>
+    </div>
+   </nav><!-- Pages Container -->
+   <main class="pt-16 sm:pt-20"><!-- HOME PAGE -->
+    <section id="page-home" class="page-section"><!-- Hero Section -->
+     <div class="relative min-h-[600px] sm:min-h-[700px] flex items-center">
+      <div class="absolute inset-0"><img src="https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=1920&amp;q=80" alt="Премиальный автомобиль" class="w-full h-full object-cover" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1f2937 0%, #374151 100%)'; this.alt='Изображение недоступно';">
+       <div class="absolute inset-0 hero-gradient"></div>
+      </div>
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+       <div class="max-w-2xl animate-fade-in">
+        <h1 id="hero-title" class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">Надёжные автомобили по честным ценам</h1>
+        <p id="hero-subtitle" class="text-xl sm:text-2xl text-gray-200 mb-10">Продажа авто в Кыргызстане</p>
+        <div class="flex flex-col sm:flex-row gap-4"><button onclick="navigateTo('catalog')" class="btn-primary px-8 py-4 text-white font-semibold rounded-xl text-lg flex items-center justify-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          </svg> Перейти в каталог </button> <button onclick="navigateTo('credit')" class="bg-white/10 backdrop-blur-sm border-2 border-white px-8 py-4 text-white font-semibold rounded-xl text-lg hover:bg-white hover:text-gray-900 transition-all duration-300 flex items-center justify-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+          </svg> Авто в кредит </button>
+        </div>
+       </div>
+      </div>
+     </div><!-- Features Section with Modals -->
+     <div class="bg-gray-50 py-16 sm:py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+       <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Почему выбирают нас</h2>
+        <p class="text-gray-600 text-lg">Более 10 лет успешной работы на рынке Кыргызстана</p>
+       </div>
+       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"><!-- Quality Guarantee -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden feature-card" onclick="toggleFeatureModal('quality')">
+         <div class="p-8 text-center cursor-pointer">
+          <div class="feature-icon w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-all duration-300">
+           <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+           </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Гарантия качества</h3>
+          <p class="text-gray-600 text-sm">Полная проверка каждого автомобиля</p>
+          <div class="mt-4 flex items-center justify-center text-red-600 font-semibold text-sm">
+           Узнать больше 
+           <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+           </svg>
+          </div>
+         </div>
+         <div id="quality-details" class="feature-details max-h-0 bg-gray-50 border-t">
+          <div class="p-6">
+           <ul class="space-y-3">
+            <li class="flex items-start">
+             <svg class="w-5 h-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+             </svg><span class="text-gray-700">Полная техническая диагностика перед продажей</span></li>
+            <li class="flex items-start">
+             <svg class="w-5 h-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+             </svg><span class="text-gray-700">Проверка кузова и двигателя</span></li>
+            <li class="flex items-start">
+             <svg class="w-5 h-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+             </svg><span class="text-gray-700">Юридическая проверка автомобиля</span></li>
+            <li class="flex items-start">
+             <svg class="w-5 h-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+             </svg><span class="text-gray-700">Подтвержденный пробег</span></li>
+            <li class="flex items-start">
+             <svg class="w-5 h-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+             </svg><span class="text-gray-700">Гарантия на основные узлы (при наличии)</span></li>
+           </ul>
+          </div>
+         </div>
+        </div><!-- Honest Prices -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden feature-card" onclick="toggleFeatureModal('prices')">
+         <div class="p-8 text-center cursor-pointer">
+          <div class="feature-icon w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-all duration-300">
+           <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+           </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Честные цены</h3>
+          <p class="text-gray-600 text-sm">Прозрачное ценообразование</p>
+          <div class="mt-4 flex items-center justify-center text-red-600 font-semibold text-sm">
+           Узнать больше 
+           <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+           </svg>
+          </div>
+         </div>
+         <div id="prices-details" class="feature-details max-h-0 bg-gray-50 border-t">
+          <div class="p-6">
+           <ul class="space-y-3">
+            <li class="flex items-start">
+             <svg class="w-5 h-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+             </svg><span class="text-gray-700">Прозрачное ценообразование</span></li>
+            <li class="flex items-start">
+             <svg class="w-5 h-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+             </svg><span class="text-gray-700">Отсутствие скрытых комиссий</span></li>
+            <li class="flex items-start">
+             <svg class="w-5 h-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+             </svg><span class="text-gray-700">Возможность торга</span></li>
+            <li class="flex items-start">
+             <svg class="w-5 h-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+             </svg><span class="text-gray-700">Рыночная оценка автомобиля</span></li>
+            <li class="flex items-start">
+             <svg class="w-5 h-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+             </svg><span class="text-gray-700">Полный расчет стоимости до подписания</span></li>
+           </ul>
+          </div>
+         </div>
+        </div><!-- Credit -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden feature-card" onclick="toggleFeatureModal('credit')">
+         <div class="p-8 text-center cursor-pointer">
+          <div class="feature-icon w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-all duration-300">
+           <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+           </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Выгодный кредит</h3>
+          <p class="text-gray-600 text-sm">Одобрение за 1 день</p>
+          <div class="mt-4 flex items-center justify-center text-red-600 font-semibold text-sm">
+           Узнать больше 
+           <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+           </svg>
+          </div>
+         </div>
+         <div id="credit-details" class="feature-details max-h-0 bg-gray-50 border-t">
+          <div class="p-6">
+           <ul class="space-y-3">
+            <li class="flex items-start">
+             <svg class="w-5 h-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+             </svg><span class="text-gray-700">Одобрение за 1 рабочий день</span></li>
+            <li class="flex items-start">
+             <svg class="w-5 h-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+             </svg><span class="text-gray-700">Ставка от 12% годовых</span></li>
+            <li class="flex items-start">
+             <svg class="w-5 h-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+             </svg><span class="text-gray-700">Срок до 7 лет</span></li>
+            <li class="flex items-start">
+             <svg class="w-5 h-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+             </svg><span class="text-gray-700">Минимальный пакет документов</span></li>
+            <li class="flex items-start">
+             <svg class="w-5 h-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+             </svg><span class="text-gray-700">Досрочное погашение без штрафов</span></li>
+           </ul>
+          </div>
+         </div>
+        </div><!-- Service 24/7 -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden feature-card" onclick="toggleFeatureModal('service')">
+         <div class="p-8 text-center cursor-pointer">
+          <div class="feature-icon w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-all duration-300">
+           <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+           </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Сервис 24/7</h3>
+          <p class="text-gray-600 text-sm">Поддержка круглосуточно</p>
+          <div class="mt-4 flex items-center justify-center text-red-600 font-semibold text-sm">
+           Узнать больше 
+           <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+           </svg>
+          </div>
+         </div>
+         <div id="service-details" class="feature-details max-h-0 bg-gray-50 border-t">
+          <div class="p-6">
+           <ul class="space-y-3">
+            <li class="flex items-start">
+             <svg class="w-5 h-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+             </svg><span class="text-gray-700">Консультация менеджера в любое время</span></li>
+            <li class="flex items-start">
+             <svg class="w-5 h-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+             </svg><span class="text-gray-700">Поддержка клиентов после покупки</span></li>
+            <li class="flex items-start">
+             <svg class="w-5 h-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+             </svg><span class="text-gray-700">Помощь на дороге</span></li>
+            <li class="flex items-start">
+             <svg class="w-5 h-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+             </svg><span class="text-gray-700">Быстрая обратная связь через телефон и WhatsApp</span></li>
+           </ul>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div><!-- Special Offers Section (Desktop) -->
+     <div class="hidden lg:block bg-white py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+       <div class="flex items-center justify-between mb-10">
+        <div>
+         <h2 class="text-3xl font-bold text-gray-900 mb-2">Выгодные предложения</h2>
+         <p class="text-gray-600">Специальные условия на избранные автомобили</p>
+        </div><button onclick="navigateTo('catalog')" class="text-red-600 font-semibold hover:text-red-700 flex items-center transition-colors"> Все предложения 
+         <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+         </svg></button>
+       </div>
+       <div class="grid grid-cols-3 gap-8" id="special-offers-grid"><!-- Special offers will be populated by JS -->
+       </div>
+      </div>
+     </div><!-- Stats Section -->
+     <div class="bg-red-600 py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+       <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+        <div>
+         <div class="text-4xl sm:text-5xl font-bold text-white mb-2">
+          500+
+         </div>
+         <div class="text-red-100">
+          Автомобилей продано
+         </div>
+        </div>
+        <div>
+         <div class="text-4xl sm:text-5xl font-bold text-white mb-2">
+          10+
+         </div>
+         <div class="text-red-100">
+          Лет на рынке
+         </div>
+        </div>
+        <div>
+         <div class="text-4xl sm:text-5xl font-bold text-white mb-2">
+          98%
+         </div>
+         <div class="text-red-100">
+          Довольных клиентов
+         </div>
+        </div>
+        <div>
+         <div class="text-4xl sm:text-5xl font-bold text-white mb-2">
+          24/7
+         </div>
+         <div class="text-red-100">
+          Поддержка
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- CATALOG PAGE -->
+    <section id="page-catalog" class="page-section hidden">
+     <div class="bg-gray-50 min-h-screen py-8 sm:py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><!-- Header -->
+       <div class="mb-8">
+        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Каталог автомобилей</h1>
+        <p class="text-gray-600 text-lg">Выберите свой идеальный автомобиль из нашей коллекции</p>
+       </div><!-- Search and Filters -->
+       <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
+        <div class="flex flex-col lg:flex-row gap-4">
+         <div class="flex-1 relative">
+          <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg><input type="text" id="search-input" placeholder="Поиск по марке и модели..." class="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all" oninput="filterCars()">
+         </div>
+         <div class="flex gap-3 flex-wrap"><select id="filter-brand" class="px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all bg-white" onchange="filterCars()"> <option value="">Все марки</option> </select> <select id="filter-year" class="px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all bg-white" onchange="filterCars()"> <option value="">Все годы</option> </select> <select id="filter-price" class="px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all bg-white" onchange="filterCars()"> <option value="">Любая цена</option> <option value="0-1000000">До 1 000 000 сом</option> <option value="1000000-2000000">1 000 000 - 2 000 000 сом</option> <option value="2000000-3000000">2 000 000 - 3 000 000 сом</option> <option value="3000000+">Более 3 000 000 сом</option> </select>
+         </div>
+        </div>
+        <div class="mt-4 flex items-center justify-between">
+         <p class="text-gray-600"><span id="cars-count">0</span> автомобилей найдено</p><button onclick="resetFilters()" class="text-red-600 hover:text-red-700 font-medium transition-colors">Сбросить фильтры</button>
+        </div>
+       </div><!-- Cars Grid -->
+       <div id="cars-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"><!-- Cars will be populated by JS -->
+       </div><!-- No Results -->
+       <div id="no-results" class="hidden text-center py-16">
+        <svg class="w-20 h-20 text-gray-300 mx-auto mb-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">Ничего не найдено</h3>
+        <p class="text-gray-600 mb-6">Попробуйте изменить параметры поиска</p><button onclick="resetFilters()" class="btn-primary px-6 py-3 text-white font-semibold rounded-xl">Сбросить фильтры</button>
+       </div>
+      </div>
+     </div>
+    </section><!-- CREDIT PAGE -->
+    <section id="page-credit" class="page-section hidden">
+     <div class="bg-gray-50 min-h-screen"><!-- Hero -->
+      <div class="relative py-16 sm:py-24 bg-cover bg-center"
+     style="background-image: url('BMW\ х5.jfif');">
+       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-3xl sm:text-5xl font-bold text-white mb-6"></h1>
+        <p class="text-xl text-gray-300 max-w-2xl mx-auto">Выгодные условия кредитования от ведущих банков Кыргызстана</p>
+       </div>
+      </div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16"><!-- Interactive Benefits -->
+       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div class="bg-white p-8 rounded-2xl shadow-lg credit-benefit-card" onclick="openCreditModal('approval')">
+         <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+          <svg class="w-10 h-10 text-red-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+         </div>
+         <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Быстрое одобрение</h3>
+         <p class="text-gray-600 text-center">Решение по заявке в течение 1 рабочего дня</p>
+         <div class="mt-4 flex items-center justify-center text-red-600 font-semibold text-sm">
+          Подробнее 
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+         </div>
+        </div>
+        <div class="bg-white p-8 rounded-2xl shadow-lg credit-benefit-card" onclick="openCreditModal('documents')">
+         <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+          <svg class="w-10 h-10 text-red-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+         </div>
+         <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Минимум документов</h3>
+         <p class="text-gray-600 text-center">Паспорт и водительское удостоверение</p>
+         <div class="mt-4 flex items-center justify-center text-red-600 font-semibold text-sm">
+          Подробнее 
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+         </div>
+        </div>
+        <div class="bg-white p-8 rounded-2xl shadow-lg credit-benefit-card" onclick="openCreditModal('rates')">
+         <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+          <svg class="w-10 h-10 text-red-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+         </div>
+         <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Выгодные проценты</h3>
+         <p class="text-gray-600 text-center">Ставка от 12% годовых</p>
+         <div class="mt-4 flex items-center justify-center text-red-600 font-semibold text-sm">
+          Подробнее 
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+         </div>
+        </div>
+       </div><!-- Credit Conditions -->
+       <div class="bg-white rounded-2xl shadow-lg p-8 sm:p-10 mb-16">
+        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 text-center">Условия кредитования</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+         <div class="text-center p-6 bg-gray-50 rounded-xl">
+          <div class="text-3xl font-bold text-red-600 mb-2">
+           от 12%
+          </div>
+          <div class="text-gray-600">
+           Процентная ставка
+          </div>
+         </div>
+         <div class="text-center p-6 bg-gray-50 rounded-xl">
+          <div class="text-3xl font-bold text-red-600 mb-2">
+           до 7 лет
+          </div>
+          <div class="text-gray-600">
+           Срок кредита
+          </div>
+         </div>
+         <div class="text-center p-6 bg-gray-50 rounded-xl">
+          <div class="text-3xl font-bold text-red-600 mb-2">
+           от 20%
+          </div>
+          <div class="text-gray-600">
+           Первоначальный взнос
+          </div>
+         </div>
+         <div class="text-center p-6 bg-gray-50 rounded-xl">
+          <div class="text-3xl font-bold text-red-600 mb-2">
+           21-65 лет
+          </div>
+          <div class="text-gray-600">
+           Возраст заёмщика
+          </div>
+         </div>
+        </div>
+       </div><!-- Application Form -->
+       <div class="bg-white rounded-2xl shadow-lg p-8 sm:p-10 max-w-2xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 text-center">Онлайн-заявка на кредит</h2>
+        <p class="text-gray-600 text-center mb-8">Заполните форму и мы свяжемся с вами в ближайшее время</p>
+        <form id="credit-form" onsubmit="submitCreditForm(event)" class="space-y-6">
+         <div><label for="credit-name" class="block text-sm font-medium text-gray-700 mb-2">Ваше имя *</label> <input type="text" id="credit-name" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all" placeholder="Введите ваше имя">
+         </div>
+         <div><label for="credit-phone" class="block text-sm font-medium text-gray-700 mb-2">Телефон *</label> <input type="tel" id="credit-phone" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all" placeholder="+996 XXX XXX XXX">
+         </div>
+         <div><label for="credit-car" class="block text-sm font-medium text-gray-700 mb-2">Желаемый автомобиль</label> <select id="credit-car" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all bg-white"> <option value="">Выберите автомобиль</option> </select>
+         </div>
+         <div><label for="credit-payment" class="block text-sm font-medium text-gray-700 mb-2">Первоначальный взнос</label> <select id="credit-payment" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all bg-white"> <option value="20">20%</option> <option value="30">30%</option> <option value="40">40%</option> <option value="50">50% и более</option> </select>
+         </div><button type="submit" class="w-full btn-primary py-4 text-white font-semibold rounded-xl text-lg"> Отправить заявку </button>
+        </form>
+        <div id="credit-success" class="hidden text-center py-8">
+         <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+         </div>
+         <h3 class="text-2xl font-bold text-gray-900 mb-2">Заявка отправлена!</h3>
+         <p class="text-gray-600">Наш менеджер свяжется с вами в ближайшее время</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- ABOUT PAGE -->
+    <section id="page-about" class="page-section hidden">
+     <div class="bg-gray-50 min-h-screen"><!-- Hero with Car Image -->
+       <div class="relative py-16 sm:py-24 bg-cover bg-center"
+     style="background-image: url('car.jfif');">
+       <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
+       <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+        <div class="max-w-2xl">
+         <h1 class="text-3xl sm:text-5xl font-bold text-white mb-6">О нашей компании</h1>
+         <p class="text-xl text-gray-200 max-w-2xl">Более 10 лет мы помогаем жителям Кыргызстана найти автомобиль своей мечты</p>
+        </div>
+       </div>
+      </div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16"><!-- About Content -->
+       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+        <div>
+         <h2 class="text-3xl font-bold text-gray-900 mb-6">Надёжный партнёр в выборе автомобиля</h2>
+         <div class="space-y-4 text-gray-600 text-lg">
+          <p><strong class="text-gray-900">Авто МАНАС</strong> — один из ведущих автосалонов Кыргызстана с безупречной репутацией и многолетним опытом работы на автомобильном рынке.</p>
+          <p>Мы предлагаем широкий выбор качественных автомобилей как новых, так и с пробегом. Каждый автомобиль проходит тщательную техническую проверку и имеет прозрачную историю.</p>
+          <p>Наша команда профессионалов поможет вам подобрать идеальный автомобиль, соответствующий вашим потребностям и бюджету. Мы также предоставляем услуги по оформлению кредита и страхования.</p>
+         </div>
+        </div>
+        <div class="relative"><img src="авто манас.jpg" alt="Автосалон в регионе МАНАС" class="rounded-2xl shadow-2xl w-80" loading="lazy" onerror="this.style.background='#e5e7eb'; this.alt='Изображение недоступно';">
+        </div>
+       </div><!-- Values -->
+       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+         <div class="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center mb-6">
+          <svg class="w-7 h-7 text-red-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+         </div>
+         <h3 class="text-xl font-bold text-gray-900 mb-3">Честность</h3>
+         <p class="text-gray-600">Полная прозрачность в каждой сделке. Мы предоставляем достоверную информацию о каждом автомобиле.</p>
+        </div>
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+         <div class="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center mb-6">
+          <svg class="w-7 h-7 text-red-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+         </div>
+         <h3 class="text-xl font-bold text-gray-900 mb-3">Профессионализм</h3>
+         <p class="text-gray-600">Наши эксперты помогут выбрать автомобиль, учитывая все ваши пожелания и возможности.</p>
+        </div>
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+         <div class="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center mb-6">
+          <svg class="w-7 h-7 text-red-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+         </div>
+         <h3 class="text-xl font-bold text-gray-900 mb-3">Забота о клиенте</h3>
+         <p class="text-gray-600">Индивидуальный подход к каждому клиенту и постпродажная поддержка.</p>
+        </div>
+       </div><!-- Team -->
+       <div class="text-center">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Наша команда</h2>
+        <p class="text-gray-600 text-lg mb-10">Профессионалы, которые любят своё дело</p>
+        <div class="relative rounded-2xl overflow-hidden shadow-2xl"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=1200&amp;q=80" alt="Команда автосалона в регионе МАНАС" class="w-full h-[400px] object-cover" loading="lazy" onerror="this.style.background='#e5e7eb'; this.alt='Изображение недоступно';">
+         <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+         <div class="absolute bottom-8 left-8 text-left text-white">
+          <h3 class="text-2xl font-bold mb-2">Более 20 специалистов</h3>
+          <p class="text-gray-200">Готовы помочь вам с выбором</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- CONTACTS PAGE -->
+    <section id="page-contacts" class="page-section hidden">
+     <div class="bg-gray-50 min-h-screen"><!-- Hero -->
+      <div class="relative py-16 sm:py-24 bg-cover bg-center"
+     style="background-image: url('cft.avif');">
+       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-3xl sm:text-5xl font-bold text-white mb-6">Контакты</h1>
+        <p class="text-xl text-gray-300 max-w-2xl mx-auto">Свяжитесь с нами любым удобным способом</p>
+       </div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12"><!-- Contact Info -->
+        <div>
+         <h2 class="text-2xl font-bold text-gray-900 mb-8">Наши контакты</h2>
+         <div class="space-y-6"><a href="tel:+996555123456" class="flex items-start p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
+           <div class="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg class="w-7 h-7 text-red-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+           </div>
+           <div class="ml-5">
+            <h3 class="text-lg font-semibold text-gray-900">Телефон</h3>
+            <p id="contact-phone" class="text-red-600 font-medium text-lg">+996 555 123 456</p>
+            <p class="text-gray-500 text-sm mt-1">Ежедневно с 9:00 до 20:00</p>
+           </div></a> <a href="https://wa.me/996555123456" target="_blank" rel="noopener noreferrer" class="flex items-start p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
+           <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg class="w-7 h-7 text-green-600" viewbox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg>
+           </div>
+           <div class="ml-5">
+            <h3 class="text-lg font-semibold text-gray-900">WhatsApp</h3>
+            <p class="text-green-600 font-medium text-lg">+996 555 123 456</p>
+            <p class="text-gray-500 text-sm mt-1">Быстрые ответы на ваши вопросы</p>
+           </div></a> <a href="mailto:info@automanas.kg" class="flex items-start p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
+           <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+           </div>
+           <div class="ml-5">
+            <h3 class="text-lg font-semibold text-gray-900">Email</h3>
+            <p class="text-blue-600 font-medium text-lg">info@automanas.kg</p>
+            <p class="text-gray-500 text-sm mt-1">Ответим в течение 24 часов</p>
+           </div></a>
+          <div class="flex items-start p-6 bg-white rounded-2xl shadow-lg">
+           <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+           </div>
+           <div class="ml-5">
+            <h3 class="text-lg font-semibold text-gray-900">Адрес</h3>
+            <p class="text-gray-700 font-medium">г. МАНАС, ул. Центральная 85</p>
+            <p class="text-gray-500 text-sm mt-1">Ежедневно с 9:00 до 20:00</p>
+           </div>
+          </div>
+         </div>
+        </div><!-- Contact Form -->
+        <div class="bg-white rounded-2xl shadow-lg p-8">
+         <h2 class="text-2xl font-bold text-gray-900 mb-2">Напишите нам</h2>
+         <p class="text-gray-600 mb-8">Оставьте сообщение и мы свяжемся с вами</p>
+         <form id="contact-form" onsubmit="submitContactForm(event)" class="space-y-6">
+          <div><label for="contact-name" class="block text-sm font-medium text-gray-700 mb-2">Ваше имя *</label> <input type="text" id="contact-name" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all" placeholder="Введите ваше имя">
+          </div>
+          <div><label for="contact-phone-input" class="block text-sm font-medium text-gray-700 mb-2">Телефон *</label> <input type="tel" id="contact-phone-input" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all" placeholder="+996 XXX XXX XXX">
+          </div>
+          <div><label for="contact-message" class="block text-sm font-medium text-gray-700 mb-2">Сообщение</label> <textarea id="contact-message" rows="4" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all resize-none" placeholder="Ваше сообщение..."></textarea>
+          </div><button type="submit" class="w-full btn-primary py-4 text-white font-semibold rounded-xl text-lg"> Отправить сообщение </button>
+         </form>
+         <div id="contact-success" class="hidden text-center py-8">
+          <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+           <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+           </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-2">Сообщение отправлено!</h3>
+          <p class="text-gray-600">Мы свяжемся с вами в ближайшее время</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+   </main><!-- Car Detail Modal -->
+   <div id="car-modal" class="fixed inset-0 z-[100] hidden">
+    <div class="modal-backdrop absolute inset-0" onclick="closeCarModal()"></div>
+    <div class="absolute inset-4 sm:inset-8 lg:inset-16 bg-white rounded-2xl overflow-hidden animate-scale-in flex flex-col"><button onclick="closeCarModal()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-colors">
+      <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg></button>
+     <div id="car-modal-content" class="flex-1 overflow-y-auto"><!-- Content will be populated by JS -->
+     </div>
+    </div>
+   </div><!-- Credit Info Modal -->
+   <div id="credit-modal" class="credit-modal hidden">
+    <div class="modal-backdrop absolute inset-0" onclick="closeCreditModal()"></div>
+    <div class="credit-modal-inner">
+     <div class="p-6 sm:p-8">
+      <div class="flex items-center justify-between mb-6">
+       <h2 id="credit-modal-title" class="text-2xl font-bold text-gray-900"></h2><button onclick="closeCreditModal()" class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg></button>
+      </div>
+      <div id="credit-modal-content" class="space-y-4"><!-- Content will be populated by JS -->
+      </div><button onclick="closeCreditModal()" class="w-full mt-8 px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-900 font-semibold rounded-xl transition-colors"> Закрыть </button>
+     </div>
+    </div>
+   </div><!-- Footer -->
+   <footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <div class="md:col-span-2">
+       <div class="flex items-center mb-4">
+        <div class="logo-icon">
+       
+        </div><span id="footer-company-name" class="text-xl font-bold">Авто МАНАС</span>
+       </div>
+       <p class="text-gray-400 mb-4">Надёжный партнёр в выборе автомобиля. Более 10 лет на рынке Кыргызстана.</p>
+       <div class="flex space-x-4"><a href="#" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-red-600 transition-colors">
+         <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+          <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+         </svg></a> <a href="#" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-red-600 transition-colors">
+         <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+         </svg></a> <a href="#" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-red-600 transition-colors">
+         <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+          <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z" />
+         </svg></a>
+       </div>
+      </div>
+      <div>
+       <h4 class="text-lg font-semibold mb-4">Навигация</h4>
+       <ul class="space-y-2">
+        <li><button onclick="navigateTo('home')" class="text-gray-400 hover:text-white transition-colors">Главная</button></li>
+        <li><button onclick="navigateTo('catalog')" class="text-gray-400 hover:text-white transition-colors">Каталог</button></li>
+        <li><button onclick="navigateTo('credit')" class="text-gray-400 hover:text-white transition-colors">Кредит</button></li>
+        <li><button onclick="navigateTo('about')" class="text-gray-400 hover:text-white transition-colors">О нас</button></li>
+        <li><button onclick="navigateTo('contacts')" class="text-gray-400 hover:text-white transition-colors">Контакты</button></li>
+       </ul>
+      </div>
+      <div>
+       <h4 class="text-lg font-semibold mb-4">Контакты</h4>
+       <ul class="space-y-2 text-gray-400">
+        <li id="footer-phone">+996 555 123 456</li>
+        <li>info@automanas.kg</li>
+        <li>г. МАНАС, ул. Центральная 85</li>
+       </ul>
+      </div>
+     </div>
+     <div class="border-t border-gray-800 pt-8 text-center text-gray-500">
+      <p>© 2024 Авто МАНАС. Все права защищены.</p>
+     </div>
+    </div>
+   </footer>
+  </div>
+  <script>
+    // Default configuration
+    const defaultConfig = {
+      hero_title: 'Надёжные автомобили по честным ценам',
+      hero_subtitle: 'Продажа авто в Кыргызстане',
+      company_name: 'Авто МАНАС',
+      phone_number: '+996 555 123 456',
+      primary_color: '#DC2626',
+      background_color: '#FFFFFF',
+      text_color: '#111827',
+      secondary_color: '#F3F4F6',
+      accent_color: '#991B1B'
+    };
+
+    let config = { ...defaultConfig };
+
+    // Cars database
+    const carsDatabase = [
+      {
+        id: 1,
+        brand: 'Toyota',
+        model: 'Camry',
+        fullName: 'Toyota Camry',
+        year: 2023,
+        price: 2850000,
+        mileage: '15 000 км',
+        engine: '2.5L Бензин',
+        transmission: 'Автомат',
+        color: 'Белый',
+        condition: 'Отличное',
+        description: 'Toyota Camry 2023 года в идеальном состоянии. Полная комплектация, кожаный салон, подогрев сидений, камера заднего вида, навигация. Один владелец, полная сервисная история. Автомобиль не участвовал в ДТП.',
+        image: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&q=80',
+        isSpecial: true
+      },
+      {
+        id: 2,
+        brand: 'Mercedes-Benz',
+        model: 'E-Class',
+        fullName: 'Mercedes-Benz E-Class',
+        year: 2022,
+        price: 4200000,
+        mileage: '28 000 км',
+        engine: '2.0L Turbo',
+        transmission: 'Автомат',
+        color: 'Чёрный',
+        condition: 'Отличное',
+        description: 'Mercedes-Benz E-Class W213 в премиальной комплектации AMG Line. Панорамная крыша, система Burmester, адаптивный круиз-контроль, система удержания в полосе. Регулярное обслуживание у официального дилера.',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_eyDalpHdVC8HO4WeayU1kP5yGPmNWm9_SQ&s?w=800&q=80',
+        isSpecial: true
+      },
+      {
+        id: 3,
+        brand: 'BMW',
+        model: 'X5',
+        fullName: 'BMW X5',
+        year: 2021,
+        price: 4500000,
+        mileage: '35 000 км',
+        engine: '3.0L Diesel',
+        transmission: 'Автомат',
+        color: 'Серый',
+        condition: 'Отличное',
+        description: 'BMW X5 xDrive30d в комплектации M Sport. Пневмоподвеска, панорамная крыша, система ночного видения, Harman Kardon аудиосистема. Два комплекта резины на дисках.',
+        image: 'https://cdn.hevcars.com.ua/wp-content/uploads/2018/09/bmw-x5-xdrive45e-iperformance-exterior-hevcars-01.jpg?w=800&q=80',
+        isSpecial: true
+      },
+      {
+        id: 4,
+        brand: 'Lexus',
+        model: 'RX 350',
+        fullName: 'Lexus RX 350',
+        year: 2022,
+        price: 3800000,
+        mileage: '22 000 км',
+        engine: '3.5L Бензин',
+        transmission: 'Автомат',
+        color: 'Белый',
+        condition: 'Идеальное',
+        description: 'Lexus RX 350 F Sport в максимальной комплектации. Кожаный салон, вентиляция сидений, система Mark Levinson, панорамная крыша. Гарантия от производителя до 2025 года.',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsesv0dt9C2eFDCcD9Lj_vbmn1hp7RGmBuiA&s?w=800&q=80',
+        isSpecial: false
+      },
+      {
+        id: 5,
+        brand: 'Hyundai',
+        model: 'Sonata',
+        fullName: 'Hyundai Sonata',
+        year: 2023,
+        price: 1950000,
+        mileage: '8 000 км',
+        engine: '2.5L Бензин',
+        transmission: 'Автомат',
+        color: 'Синий',
+        condition: 'Новый',
+        description: 'Новый Hyundai Sonata DN8 в комплектации Premium. Цифровая панель приборов, беспроводная зарядка, система BOSE, дистанционный запуск. Официальная гарантия 5 лет.',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj1IdTGqkuLo6VaYt3wO1B9QGlrPZYmBrROA&s?w=800&q=80',
+        isSpecial: false
+      },
+      {
+        id: 6,
+        brand: 'Kia',
+        model: 'K5',
+        fullName: 'Kia K5',
+        year: 2023,
+        price: 1850000,
+        mileage: '5 000 км',
+        engine: '2.5L Бензин',
+        transmission: 'Автомат',
+        color: 'Красный',
+        condition: 'Новый',
+        description: 'Kia K5 GT-Line в топовой комплектации. Спортивный дизайн, 19-дюймовые диски, адаптивная подвеска, проекционный дисплей. Первый владелец, на гарантии.',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfwTGyC9A_qo6qEG5sPt8_JBHIV1MuEezRvw&s?w=800&q=80',
+        isSpecial: false
+      },
+      {
+        id: 7,
+        brand: 'Audi',
+        model: 'A6',
+        fullName: 'Audi A6',
+        year: 2021,
+        price: 3600000,
+        mileage: '42 000 км',
+        engine: '2.0L TFSI',
+        transmission: 'Автомат',
+        color: 'Чёрный',
+        condition: 'Отличное',
+        description: 'Audi A6 55 TFSI quattro S line. Полный привод, виртуальная кабина, матричные фары, система Bang & Olufsen. Полная сервисная история у официального дилера.',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo_xdndKcEp5YZrHruRueQSU0wEOTiPiKvug&s?w=800&q=80',
+        isSpecial: false
+      },
+      {
+        id: 8,
+        brand: 'Volkswagen',
+        model: 'Tiguan',
+        fullName: 'Volkswagen Tiguan',
+        year: 2022,
+        price: 2400000,
+        mileage: '18 000 км',
+        engine: '2.0L TSI',
+        transmission: 'Автомат',
+        color: 'Белый',
+        condition: 'Отличное',
+        description: 'Volkswagen Tiguan R-Line в полной комплектации. Полный привод 4Motion, панорамная крыша, цифровая панель, адаптивный круиз. Один владелец.',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxiHTF97mQ3qHAubf6mMXooqJY_ps_9JxFgQ&s?w=800&q=80',
+        isSpecial: false
+      },
+      {
+        id: 9,
+        brand: 'Honda',
+        model: 'CR-V',
+        fullName: 'Honda CR-V',
+        year: 2023,
+        price: 2650000,
+        mileage: '12 000 км',
+        engine: '1.5L Turbo',
+        transmission: 'Автомат',
+        color: 'Серебристый',
+        condition: 'Отличное',
+        description: 'Honda CR-V Hybrid в комплектации EX-L. Гибридная система, экономичный расход, Apple CarPlay, Android Auto. Официальная гарантия действует.',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdid6YW7gWtyIG4_u9Ll50a-uAqPF7qSysMg&s?w=800&q=80',
+        isSpecial: false
+      },
+      {
+        id: 10,
+        brand: 'Mazda',
+        model: 'CX-5',
+        fullName: 'Mazda CX-5',
+        year: 2022,
+        price: 2200000,
+        mileage: '25 000 км',
+        engine: '2.5L Бензин',
+        transmission: 'Автомат',
+        color: 'Красный',
+        condition: 'Отличное',
+        description: 'Mazda CX-5 в фирменном красном цвете Soul Red Crystal. Полный привод i-ACTIV AWD, система G-Vectoring, премиальный салон из натуральной кожи.',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDDhDhsKv6q7PbF_Vzu4_QsVxpCbAMpBgkLw&s?w=800&q=80',
+        isSpecial: false
+      },
+      {
+        id: 11,
+        brand: 'Nissan',
+        model: 'Qashqai',
+        fullName: 'Nissan Qashqai',
+        year: 2023,
+        price: 1750000,
+        mileage: '7 000 км',
+        engine: '1.3L Turbo',
+        transmission: 'Вариатор',
+        color: 'Белый',
+        condition: 'Новый',
+        description: 'Новый Nissan Qashqai J12 в комплектации Tekna+. Система ProPILOT, электронный стояночный тормоз, 360° камера, система Bose. На гарантии.',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRUR-B773OvEnW40V0UNS6Knr6qgSA7dO1SA&s?w=800&q=80',
+        isSpecial: false
+      },
+      {
+        id: 12,
+        brand: 'Subaru',
+        model: 'Outback',
+        fullName: 'Subaru Outback',
+        year: 2022,
+        price: 2550000,
+        mileage: '20 000 км',
+        engine: '2.5L Boxer',
+        transmission: 'Вариатор',
+        color: 'Зелёный',
+        condition: 'Отличное',
+        description: 'Subaru Outback с легендарной системой симметричного полного привода. EyeSight система безопасности, X-Mode для бездорожья. Идеален для активного отдыха.',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSL34N91BiP3sQKtwPhAzQ2hHqHqneSStyHBg&s?w=800&q=80',
+        isSpecial: false
+      },
+      {
+        id: 13,
+        brand: 'Mitsubishi',
+        model: 'Outlander',
+        fullName: 'Mitsubishi Outlander',
+        year: 2023,
+        price: 2350000,
+        mileage: '10 000 км',
+        engine: '2.5L MIVEC',
+        transmission: 'Вариатор',
+        color: 'Чёрный',
+        condition: 'Отличное',
+        description: 'Mitsubishi Outlander нового поколения. Полный привод S-AWC, 7-местный салон, премиальная аудиосистема, адаптивный круиз-контроль.',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGGRjZMwpG1aGdW8u6fjcCJamlTKBb5-5UxA&s?w=800&q=80',
+        isSpecial: false
+      },
+      {
+        id: 14,
+        brand: 'Skoda',
+        model: 'Kodiaq',
+        fullName: 'Skoda Kodiaq',
+        year: 2022,
+        price: 2150000,
+        mileage: '30 000 км',
+        engine: '2.0L TSI',
+        transmission: 'Автомат',
+        color: 'Серый',
+        condition: 'Хорошее',
+        description: 'Skoda Kodiaq Style в 7-местной конфигурации. Полный привод 4x4, виртуальная кабина, Canton аудиосистема, панорамная крыша.',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSh6w9UexYQ-o39koRswrqgCoPDT9O4D0KZ7A&s?w=800&q=80',
+        isSpecial: false
+      },
+      {
+        id: 15,
+        brand: 'Chevrolet',
+        model: 'Tahoe',
+        fullName: 'Chevrolet Tahoe',
+        year: 2021,
+        price: 5200000,
+        mileage: '45 000 км',
+        engine: '5.3L V8',
+        transmission: 'Автомат',
+        color: 'Чёрный',
+        condition: 'Отличное',
+        description: 'Chevrolet Tahoe High Country - полноразмерный премиальный внедорожник. Мощный V8, магнитная подвеска, 8-местный салон, система Super Cruise.',
+        image: 'https://avatars.mds.yandex.net/get-verba/787013/2a000001917e7df0456d160ef6dbe9aac26b/456x342?w=800&q=80',
+        isSpecial: false
+      },
+      {
+        id: 16,
+        brand: 'Jeep',
+        model: 'Grand Cherokee',
+        fullName: 'Jeep Grand Cherokee',
+        year: 2022,
+        price: 4800000,
+        mileage: '25 000 км',
+        engine: '3.6L V6',
+        transmission: 'Автомат',
+        color: 'Белый',
+        condition: 'Идеальное',
+        description: 'Jeep Grand Cherokee L в топовой комплектации Summit Reserve. Система Quadra-Trac II, пневмоподвеска, McIntosh аудиосистема, 3 ряда сидений.',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6zKIEemPiR8oRGTqtsRdMuCvHZ00p5PBAxw&s?w=800&q=80',
+        isSpecial: false
+      },
+      {
+        id: 17,
+        brand: 'Porsche',
+        model: 'Cayenne',
+        fullName: 'Porsche Cayenne',
+        year: 2021,
+        price: 7500000,
+        mileage: '32 000 км',
+        engine: '3.0L V6 Turbo',
+        transmission: 'Автомат',
+        color: 'Серый',
+        condition: 'Идеальное',
+        description: 'Porsche Cayenne S в эксклюзивной комплектации. Спортивный пакет Chrono, адаптивная пневмоподвеска, керамические тормоза, полный привод.',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJ2iicphrYy4tO6-O5afcYEIpMclyS4lPhzg&s?w=800&q=80',
+        isSpecial: false
+      },
+      {
+        id: 18,
+        brand: 'Land Rover',
+        model: 'Range Rover Sport',
+        fullName: 'Land Rover Range Rover Sport',
+        year: 2022,
+        price: 6800000,
+        mileage: '20 000 км',
+        engine: '3.0L Diesel',
+        transmission: 'Автомат',
+        color: 'Чёрный',
+        condition: 'Идеальное',
+        description: 'Range Rover Sport HSE Dynamic в роскошной комплектации. Terrain Response 2, система Meridian, интерактивная панель водителя, пневмоподвеска.',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvlhWAyiC8x0WyCQj94MyZ_eGOGpJXkRklfg&s?w=800&q=80',
+        isSpecial: false
+      }
+    ];
+
+    let filteredCars = [...carsDatabase];
+
+    // Toggle feature modal
+    function toggleFeatureModal(feature) {
+      const detailsEl = document.getElementById(`${feature}-details`);
+      if (detailsEl.classList.contains('open')) {
+        detailsEl.classList.remove('open');
+        detailsEl.style.maxHeight = '0';
+      } else {
+        document.querySelectorAll('.feature-details.open').forEach(el => {
+          el.classList.remove('open');
+          el.style.maxHeight = '0';
+        });
+        detailsEl.classList.add('open');
+        detailsEl.style.maxHeight = detailsEl.scrollHeight + 'px';
+      }
+    }
+
+    // Credit modal functions
+    function openCreditModal(type) {
+      const modal = document.getElementById('credit-modal');
+      const title = document.getElementById('credit-modal-title');
+      const content = document.getElementById('credit-modal-content');
+
+      const modals = {
+        approval: {
+          title: 'Быстрое одобрение',
+          items: [
+            'Рассмотрение заявки в течение 1 рабочего дня',
+            'Предварительное решение за 30–60 минут',
+            'Онлайн-подача заявки без посещения банка',
+            'Индивидуальный подход к каждому клиенту'
+          ]
+        },
+        documents: {
+          title: 'Минимум документов',
+          items: [
+            'Паспорт',
+            'Водительское удостоверение',
+            'Без справки о доходах (при определённых условиях)',
+            'Возможность оформления без поручителей'
+          ]
+        },
+        rates: {
+          title: 'Выгодные проценты',
+          items: [
+            'Ставка от 12% годовых',
+            'Срок кредита до 5–7 лет',
+            'Возможность досрочного погашения без штрафов',
+            'Прозрачные условия без скрытых комиссий'
+          ]
+        }
+      };
+
+      const data = modals[type];
+      title.textContent = data.title;
+      content.innerHTML = data.items.map(item => `
+        <div class="flex items-start">
+          <svg class="w-5 h-5 text-red-600 mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+          </svg>
+          <span class="text-gray-700">${item}</span>
+        </div>
+      `).join('');
+
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCreditModal() {
+      const modal = document.getElementById('credit-modal');
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    // Navigation
+    function navigateTo(page) {
+      document.querySelectorAll('.page-section').forEach(section => {
+        section.classList.add('hidden');
+      });
+      
+      const targetPage = document.getElementById(`page-${page}`);
+      if (targetPage) {
+        targetPage.classList.remove('hidden');
+        targetPage.classList.add('animate-fade-in');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      
+      if (page === 'catalog') {
+        renderCars();
+        populateFilters();
+      }
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const menuIcon = document.getElementById('menu-icon');
+      const closeIcon = document.getElementById('close-icon');
+      
+      menu.classList.toggle('hidden');
+      menuIcon.classList.toggle('hidden');
+      closeIcon.classList.toggle('hidden');
+    }
+
+    // Format price
+    function formatPrice(price) {
+      return new Intl.NumberFormat('ru-RU').format(price) + ' сом';
+    }
+
+    // Render cars
+    function renderCars() {
+      const grid = document.getElementById('cars-grid');
+      const noResults = document.getElementById('no-results');
+      const countEl = document.getElementById('cars-count');
+      
+      if (filteredCars.length === 0) {
+        grid.innerHTML = '';
+        noResults.classList.remove('hidden');
+        countEl.textContent = '0';
+        return;
+      }
+      
+      noResults.classList.add('hidden');
+      countEl.textContent = filteredCars.length;
+      
+      grid.innerHTML = filteredCars.map((car, index) => `
+        <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover animate-fade-in" style="animation-delay: ${index * 0.05}s">
+          <div class="relative aspect-[4/3] overflow-hidden">
+            <img src="${car.image}" alt="${car.fullName}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" loading="lazy" onerror="this.style.background='#e5e7eb'; this.alt='Изображение недоступно';">
+            ${car.isSpecial ? '<div class="absolute top-3 left-3 special-offer-badge text-white text-xs font-semibold px-3 py-1 rounded-full">Выгодно</div>' : ''}
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-bold text-gray-900 mb-1">${car.fullName}</h3>
+            <p class="text-gray-500 text-sm mb-3">${car.year} • ${car.mileage}</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xl font-bold text-red-600">${formatPrice(car.price)}</span>
+            </div>
+            <button onclick="openCarModal(${car.id})" class="w-full mt-4 btn-primary py-3 text-white font-semibold rounded-xl">
+              Подробнее
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Populate filters
+    function populateFilters() {
+      const brandFilter = document.getElementById('filter-brand');
+      const yearFilter = document.getElementById('filter-year');
+      const creditCarSelect = document.getElementById('credit-car');
+      
+      const brands = [...new Set(carsDatabase.map(car => car.brand))].sort();
+      const years = [...new Set(carsDatabase.map(car => car.year))].sort((a, b) => b - a);
+      
+      brandFilter.innerHTML = '<option value="">Все марки</option>' + 
+        brands.map(brand => `<option value="${brand}">${brand}</option>`).join('');
+      
+      yearFilter.innerHTML = '<option value="">Все годы</option>' + 
+        years.map(year => `<option value="${year}">${year}</option>`).join('');
+      
+      creditCarSelect.innerHTML = '<option value="">Выберите автомобиль</option>' + 
+        carsDatabase.map(car => `<option value="${car.id}">${car.fullName} (${car.year})</option>`).join('');
+    }
+
+    // Filter cars
+    function filterCars() {
+      const searchInput = document.getElementById('search-input').value.toLowerCase();
+      const brandFilter = document.getElementById('filter-brand').value;
+      const yearFilter = document.getElementById('filter-year').value;
+      const priceFilter = document.getElementById('filter-price').value;
+      
+      filteredCars = carsDatabase.filter(car => {
+        const matchesSearch = car.fullName.toLowerCase().includes(searchInput) || 
+                             car.brand.toLowerCase().includes(searchInput) ||
+                             car.model.toLowerCase().includes(searchInput);
+        const matchesBrand = !brandFilter || car.brand === brandFilter;
+        const matchesYear = !yearFilter || car.year === parseInt(yearFilter);
+        
+        let matchesPrice = true;
+        if (priceFilter) {
+          if (priceFilter === '3000000+') {
+            matchesPrice = car.price >= 3000000;
+          } else {
+            const [min, max] = priceFilter.split('-').map(Number);
+            matchesPrice = car.price >= min && car.price <= max;
+          }
+        }
+        
+        return matchesSearch && matchesBrand && matchesYear && matchesPrice;
+      });
+      
+      renderCars();
+    }
+
+    // Reset filters
+    function resetFilters() {
+      document.getElementById('search-input').value = '';
+      document.getElementById('filter-brand').value = '';
+      document.getElementById('filter-year').value = '';
+      document.getElementById('filter-price').value = '';
+      filteredCars = [...carsDatabase];
+      renderCars();
+    }
+
+    // Car modal
+    function openCarModal(carId) {
+      const car = carsDatabase.find(c => c.id === carId);
+      if (!car) return;
+      
+      const modal = document.getElementById('car-modal');
+      const content = document.getElementById('car-modal-content');
+      
+      content.innerHTML = `
+        <div class="grid grid-cols-1 lg:grid-cols-2 h-full">
+          <div class="relative aspect-video lg:aspect-auto lg:h-full bg-gray-100">
+            <img src="${car.image}" alt="${car.fullName}" class="w-full h-full object-cover" loading="lazy" onerror="this.style.background='#e5e7eb'; this.alt='Изображение недоступно';">
+            ${car.isSpecial ? '<div class="absolute top-4 left-4 special-offer-badge text-white text-sm font-semibold px-4 py-2 rounded-full">Выгодное предложение</div>' : ''}
+          </div>
+          <div class="p-6 sm:p-8 lg:p-10 overflow-y-auto">
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">${car.fullName}</h2>
+            <p class="text-3xl font-bold text-red-600 mb-6">${formatPrice(car.price)}</p>
+            
+            <div class="grid grid-cols-2 gap-4 mb-8">
+              <div class="bg-gray-50 p-4 rounded-xl">
+                <p class="text-gray-500 text-sm mb-1">Год выпуска</p>
+                <p class="font-semibold text-gray-900">${car.year}</p>
+              </div>
+              <div class="bg-gray-50 p-4 rounded-xl">
+                <p class="text-gray-500 text-sm mb-1">Пробег</p>
+                <p class="font-semibold text-gray-900">${car.mileage}</p>
+              </div>
+              <div class="bg-gray-50 p-4 rounded-xl">
+                <p class="text-gray-500 text-sm mb-1">Двигатель</p>
+                <p class="font-semibold text-gray-900">${car.engine}</p>
+              </div>
+              <div class="bg-gray-50 p-4 rounded-xl">
+                <p class="text-gray-500 text-sm mb-1">Коробка</p>
+                <p class="font-semibold text-gray-900">${car.transmission}</p>
+              </div>
+              <div class="bg-gray-50 p-4 rounded-xl">
+                <p class="text-gray-500 text-sm mb-1">Цвет</p>
+                <p class="font-semibold text-gray-900">${car.color}</p>
+              </div>
+              <div class="bg-gray-50 p-4 rounded-xl">
+                <p class="text-gray-500 text-sm mb-1">Состояние</p>
+                <p class="font-semibold text-gray-900">${car.condition}</p>
+              </div>
+            </div>
+            
+            <div class="mb-8">
+              <h3 class="text-lg font-semibold text-gray-900 mb-3">Описание</h3>
+              <p class="text-gray-600 leading-relaxed">${car.description}</p>
+            </div>
+            
+            <button onclick="openApplicationModal(${car.id})" class="w-full btn-primary py-4 text-white font-semibold rounded-xl text-lg">
+              Оставить заявку
+            </button>
+          </div>
+        </div>
+      `;
+      
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCarModal() {
+      const modal = document.getElementById('car-modal');
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    function openApplicationModal(carId) {
+      const car = carsDatabase.find(c => c.id === carId);
+      if (!car) return;
+      
+      const content = document.getElementById('car-modal-content');
+      
+      content.innerHTML = `
+        <div class="p-6 sm:p-8 lg:p-10 max-w-xl mx-auto">
+          <h2 class="text-2xl font-bold text-gray-900 mb-2 text-center">Заявка на автомобиль</h2>
+          <p class="text-gray-600 text-center mb-6">${car.fullName}</p>
+          
+          <form id="application-form" onsubmit="submitApplicationForm(event, ${car.id})" class="space-y-5">
+            <div>
+              <label for="app-name" class="block text-sm font-medium text-gray-700 mb-2">Ваше имя *</label>
+              <input type="text" id="app-name" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all" placeholder="Введите ваше имя">
+            </div>
+            
+            <div>
+              <label for="app-phone" class="block text-sm font-medium text-gray-700 mb-2">Телефон *</label>
+              <input type="tel" id="app-phone" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all" placeholder="+996 XXX XXX XXX">
+            </div>
+            
+            <div>
+              <label for="app-message" class="block text-sm font-medium text-gray-700 mb-2">Комментарий</label>
+              <textarea id="app-message" rows="3" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all resize-none" placeholder="Ваши пожелания..."></textarea>
+            </div>
+            
+            <button type="submit" class="w-full btn-primary py-4 text-white font-semibold rounded-xl text-lg">
+              Отправить заявку
+            </button>
+          </form>
+          
+          <div id="application-success" class="hidden text-center py-8">
+            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Заявка отправлена!</h3>
+            <p class="text-gray-600 mb-6">Наш менеджер свяжется с вами в ближайшее время</p>
+            <button onclick="closeCarModal()" class="btn-primary px-8 py-3 text-white font-semibold rounded-xl">Закрыть</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function submitApplicationForm(event, carId) {
+      event.preventDefault();
+      document.getElementById('application-form').classList.add('hidden');
+      document.getElementById('application-success').classList.remove('hidden');
+    }
+
+    // Form submissions
+    function submitCreditForm(event) {
+      event.preventDefault();
+      document.getElementById('credit-form').classList.add('hidden');
+      document.getElementById('credit-success').classList.remove('hidden');
+    }
+
+    function submitContactForm(event) {
+      event.preventDefault();
+      document.getElementById('contact-form').classList.add('hidden');
+      document.getElementById('contact-success').classList.remove('hidden');
+    }
+
+    // Render special offers
+    function renderSpecialOffers() {
+      const grid = document.getElementById('special-offers-grid');
+      const specialCars = carsDatabase.filter(car => car.isSpecial).slice(0, 3);
+      
+      grid.innerHTML = specialCars.map(car => `
+        <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover">
+          <div class="relative aspect-[4/3] overflow-hidden">
+            <img src="${car.image}" alt="${car.fullName}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" loading="lazy" onerror="this.style.background='#e5e7eb'; this.alt='Изображение недоступно';">
+            <div class="absolute top-3 left-3 special-offer-badge text-white text-xs font-semibold px-3 py-1 rounded-full">Выгодно</div>
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-bold text-gray-900 mb-1">${car.fullName}</h3>
+            <p class="text-gray-500 text-sm mb-3">${car.year} • ${car.mileage}</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xl font-bold text-red-600">${formatPrice(car.price)}</span>
+            </div>
+            <button onclick="navigateTo('catalog'); setTimeout(() => openCarModal(${car.id}), 300);" class="w-full mt-4 btn-primary py-3 text-white font-semibold rounded-xl">
+              Подробнее
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Update UI based on config
+    async function onConfigChange(cfg) {
+      config = { ...defaultConfig, ...cfg };
+      
+      // Update hero
+      const heroTitle = document.getElementById('hero-title');
+      const heroSubtitle = document.getElementById('hero-subtitle');
+      if (heroTitle) heroTitle.textContent = config.hero_title || defaultConfig.hero_title;
+      if (heroSubtitle) heroSubtitle.textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
+      
+      // Update company name
+      const navCompanyName = document.getElementById('nav-company-name');
+      const footerCompanyName = document.getElementById('footer-company-name');
+      if (navCompanyName) navCompanyName.textContent = config.company_name || defaultConfig.company_name;
+      if (footerCompanyName) footerCompanyName.textContent = config.company_name || defaultConfig.company_name;
+      
+      // Update phone numbers
+      const navPhone = document.getElementById('nav-phone');
+      const contactPhone = document.getElementById('contact-phone');
+      const footerPhone = document.getElementById('footer-phone');
+      const phoneNumber = config.phone_number || defaultConfig.phone_number;
+      if (navPhone) navPhone.textContent = phoneNumber;
+      if (contactPhone) contactPhone.textContent = phoneNumber;
+      if (footerPhone) footerPhone.textContent = phoneNumber;
+    }
+
+    // Initialize Element SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities: (cfg) => ({
+          recolorables: [
+            {
+              get: () => cfg.primary_color || defaultConfig.primary_color,
+              set: (value) => {
+                cfg.primary_color = value;
+                window.elementSdk.setConfig({ primary_color: value });
+              }
+            },
+            {
+              get: () => cfg.background_color || defaultConfig.background_color,
+              set: (value) => {
+                cfg.background_color = value;
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            },
+            {
+              get: () => cfg.text_color || defaultConfig.text_color,
+              set: (value) => {
+                cfg.text_color = value;
+                window.elementSdk.setConfig({ text_color: value });
+              }
+            }
+          ],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (cfg) => new Map([
+          ['hero_title', cfg.hero_title || defaultConfig.hero_title],
+          ['hero_subtitle', cfg.hero_subtitle || defaultConfig.hero_subtitle],
+          ['company_name', cfg.company_name || defaultConfig.company_name],
+          ['phone_number', cfg.phone_number || defaultConfig.phone_number]
+        ])
+      });
+    }
+
+    // Initialize
+    renderSpecialOffers();
+    populateFilters();
+
+    // Close modals on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeCarModal();
+        closeCreditModal();
+      }
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cd1b14622f0a383',t:'MTc3MDk1ODA5Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
